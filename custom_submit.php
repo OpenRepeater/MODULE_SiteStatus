@@ -7,6 +7,7 @@
 
 ### Data comes in as '$inputArray' ###	
 
+/*
 // Process submitted post varialbes
 foreach($inputArray as $key=>$value){  
 	if(in_array($key, array("relayNum", "relayLabel", "relayGPIO"))){
@@ -43,6 +44,9 @@ $moduleOptions['relay'] = $relaysNested;
 
 // Pass NEW array back out as $outputArray
 $outputArray = $moduleOptions;
+*/
 
+$outputArray = $inputArray; // Temp pass thru
+	
 ### Data MUST leave as '$outputArray' ###
 ?>

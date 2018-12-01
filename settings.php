@@ -10,56 +10,69 @@
 	<fieldset>
 		<legend>Module Settings</legend>
 	
-		  <div class="control-group">
-			<label class="control-label" for="timeout">Module Timeout</label>
+		  <div class="control-group"> <!-- DigitalPath -->
+			<label class="control-label" for="DigitalPath">Digital GPIO Path</label>
 			<div class="controls">
 			  <div class="input-append">
-				<input id="timeout" name="timeout" size="16" type="text" value="<?php echo $moduleSettings['timeout']; ?>" required><span class="add-on">secs</span>
+				<input id="DigitalPath" name="DigitalPath" size="254" type="text" value="/sys/class/gpio/gpio" required>
 			  </div>
 			</div>
-		    <span class="help-inline">This is how many seconds of inactivity to wait for until the module is disabled.</span>
+		    <span class="help-inline">This is the base linux path that is used to read the value of a GPIO input pin.</span>
 		  </div>
 	
-		  <div class="control-group">
-			<label class="control-label" for="momentary_delay">Momentary Relay Delay</label>
+		  <div class="control-group"> <!-- AnalogPath -->
+			<label class="control-label" for="AnalogPath">Analog GPIO Path</label>
 			<div class="controls">
 			  <div class="input-append">
-				<input id="momentary_delay" name="momentary_delay" size="16" type="text" value="<?php echo $moduleSettings['momentary_delay']; ?>" required><span class="add-on">ms</span>
+				<input id="AnalogPath" name="AnalogPath" size="254" type="text" value="/sys/bus/iio/devices/iio:device0/in_voltage" required>
 			  </div>
 			</div>
-		    <span class="help-inline">This value is how long in milliseconds the relays will engage for momentary mode. A good starting value is probably in the 100-200ms range. This will depend on what you are controlling.</span>
+		    <span class="help-inline">This is the base linux path that is used to read the value of a analog sensor input pin.  Do not include the actual input number, but find the path that gets right up to the numeric portion of the file name.  Example "ADC_1" should stop at "ADC_"</span>
 		  </div>
 	
-		  <div class="control-group">
-			<label class="control-label" for="access_pin">DTMF Access Pin</label>
+		  <div class="control-group"> <!-- Number of Digital Sensors -->
+			<label class="control-label" for="DIGITAL_SENSORS_COUNT">Digital Sensor Count</label>
 			<div class="controls">
-			  <input class="input-xlarge" id="access_pin" type="text" name="access_pin" value="<?php echo $moduleSettings['access_pin']; ?>">
+			  <input class="input-xlarge" id="DIGITAL_SENSORS_COUNT" type="text" name="DIGITAL_SENSORS_COUNT" value="0">
 			</div>
-		    <span class="help-inline">When set, the Remote Relay Module will prompt for this pin when the module is activated. Leave empty to not require a pin for access.</span>
+		    <span class="help-inline">Define the number of digital sensors that are being used.  This number is the physical number of sensors, so counting starts at 1.  Set to 0 to disable the digital sensors portion of the module</span>
 		  </div>
 	
-		  <div class="control-group">
-			<label class="control-label" for="access_attempts_allowed">DTMF Access Attempts Allowed</label>
+		  <div class="control-group"> <!-- Number of Analog Sensors --> 
+			<label class="control-label" for="ANALOG_SENSORS_COUNT">Analog Sensors Count</label>
 			<div class="controls">
-			  <input class="input-xlarge" id="access_attempts_allowed" type="text" name="access_attempts_allowed" value="<?php echo $moduleSettings['access_attempts_allowed']; ?>" required>
+			  <input class="input-xlarge" id="ANALOG_SENSORS_COUNT" type="text" name="ANALOG_SENSORS_COUNT" value="0" required>
 			</div>
-		    <span class="help-inline">The number of pin entry attempts allowed before module is deactivated.</span>
+		    <span class="help-inline">Define the number of Analog sensors that are being used.  This number is the physical number of sensors, so counting starts at 1.  Set to 0 to disable the Analog sensors portion of the module</span>
 		  </div>
 	
+	
+	
+	<legend>Configure Digital Sensors</legend>
+	<!-- Note the user will be thinking in terms of real numbers, but the software counts starting at 0
+	so the sensor ID numbers will be N-1 from the number the user sees -->
+		
 		  <div class="control-group">
-			<label class="control-label" for="relays_off_deactivation">Turn off ALL relays when module is deactivated</label>
+				  <div class="control-group"> <!-- Number of Analog Sensors --> 
+			<label class="control-label" for="DIGITAL_0_GPIO">DIGITAL SENSOR 1 GPIO NUMBER</label>
 			<div class="controls">
-			  <input type="radio" name="relays_off_deactivation" value="1" <?php if ($moduleSettings['relays_off_deactivation'] == "1") { echo 'checked="checked"'; } ?>><span> Yes </span>
-			  <input type="radio" name="relays_off_deactivation" value="0" <?php if ($moduleSettings['relays_off_deactivation'] == "0") { echo 'checked="checked"'; } ?>><span> No </span>
+			  <input class="input-xlarge" id="DIGITAL_0" type="text" name="DIGITAL_0" value="496" required>
 			</div>
-		    <span class="help-inline">If enabled, all relays will be turned off when the module is deactivated either by DTMF command or the module times out. Disable to leave the relays in their current state when the module is exited.</span>
+		    <span class="help-inline">Define what GPIO pin digital sensor 1 will use</span>
 		  </div>
-	
-	
-	
-	
-	
-		<legend>Define Relays</legend>
+		
+		<!-- BLAH BLAH BLAH -->
+			<label class="control-label" for="Digital Sensor 1 Type">Define what type of sensor is attached to digital Sensor 1</label>
+			<div class="controls">
+			  <input type="radio" name="DIGITAL_TYPE_1" value="DOOR_ACTIVE_HIGH" <?php if ($moduleSettings['relays_off_deactivation'] == "1") { echo 'checked="checked"'; } ?>><span> DOOR_ACTIVE_HIGH </span>
+			  <input type="radio" name="DIGITAL_TYPE_1" value="DOOR_ACTIVE_LOW" <?php if ($moduleSettings['relays_off_deactivation'] == "0") { echo 'checked="checked"'; } ?>><span> DOOR_ACTIVE_LOW </span> </br>
+			  <input type="radio" name="DIGITAL_TYPE_1" value="FUEL_ACTIVE_HIGH" <?php if ($moduleSettings['relays_off_deactivation'] == "1") { echo 'checked="checked"'; } ?>><span> FUEL_ACTIVE_HIGH </span>
+			  <input type="radio" name="DIGITAL_TYPE_1" value="FUEL_ACTIVE_LOW" <?php if ($moduleSettings['relays_off_deactivation'] == "0") { echo 'checked="checked"'; } ?>><span> FUEL_ACTIVE_LOW </span> </br>
+			  
+			</div>
+		    <span class="help-inline">Select the appropriate sensor type to configure the behavior and vocalizatoin of events for tihs sensor</span>
+		  </div>
+		  
 	
 	<div id="relaysWrap">
 	<?php 

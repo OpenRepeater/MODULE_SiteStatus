@@ -14,7 +14,7 @@
 			<label class="control-label" for="DigitalPath">Digital GPIO Path</label>
 			<div class="controls">
 			  <div class="input-append">
-				<input id="DigitalPath" name="DigitalPath" size="254" type="text" value="/sys/class/gpio/gpio" required>
+				<input id="DigitalPath" name="DigitalPath" size="254" type="text" value="<?php echo $moduleSettings['DigitalPath']; ?>" required>
 			  </div>
 			</div>
 		    <span class="help-inline">This is the base linux path that is used to read the value of a GPIO input pin.</span>

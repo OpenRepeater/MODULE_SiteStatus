@@ -103,8 +103,12 @@ namespace eval SiteStatus {
 			set ANALOG_ENABLE_$i "DISABLED"
 		}
 	}
-
+	
 	proc main_every_second {} {
+		printInfo "hello world"
+	}
+
+	proc main_every_second1 {} {
 		# USE THIS SECTION FOR DIGITAL SENSORS, ANALOG SENSORS ARE HANDLED BELOW
 		variable CFG_DIGITAL_GPIO_PATH
 		variable CFG_DIGITAL_SENSORS_COUNT
@@ -137,22 +141,22 @@ namespace eval SiteStatus {
 					# Handle the event based on user configurations
 					switch $TYPE {
 						DOOR_ACTIVE_HIGH {
-							DOORSENSOR_ANNOUNCE $i $NEW_STATE
+							DOORSENSOR_ANNOUNCE $i $DIGITAL_NEW_STATE
 						}
 						DOOR_ACTIVE_LOW {
-							DOORSENSOR_ANNOUNCE $i !$NEW_STATE
+							DOORSENSOR_ANNOUNCE $i !$DIGITAL_NEW_STATE
 						}
 						FUEL_ACTIVE_HIGH {
-							FUELSENSOR_ANNOUNCE $i $NEW_STATE
+							FUELSENSOR_ANNOUNCE $i $DIGITAL_NEW_STATE
 						}
 						FUEL_ACTIVE_LOW {
-							FUELSENSOR_ANNOUNCE $i !$NEW_STATE
+							FUELSENSOR_ANNOUNCE $i !$DIGITAL_NEW_STATE
 						}
 						SOLAR_ACTIVE_HIGH {
-							SOLARSENSOR_ANNOUNCE $i $NEW_STATE
+							SOLARSENSOR_ANNOUNCE $i $DIGITAL_NEW_STATE
 						}
 						SOLAR_ACTIVE_LOW {
-							SOLARSENSOR_ANNOUNCE $i !$NEW_STATE
+							SOLARSENSOR_ANNOUNCE $i !$DIGITAL_NEW_STATE
 						}
 						default {
 							printInfo "DIGITAL SENSOR $i is of unknown type -$TYPE"

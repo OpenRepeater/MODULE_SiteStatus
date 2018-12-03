@@ -8,56 +8,71 @@
 $options = unserialize($cur_mod['moduleOptions']);
 
 
+################################################################################
+# This is a stripped down file to the basics required create the PHP array that
+# will be used by ORP to write the config file in INI formate for the some of the
+# variables at the top in consturcting the array are pulled from the initiating
+# loop. I would start by transposing the values out of your ModuleSiteStatus.conf
+# to hard coded array items first and verify the svxlink side works first, then
+# you can focus on adding in dynamic values and additional logic and loops if 
+# required. This way we can see exactly what the data needs to look like.
+################################################################################
+
+################################################################################
+# This first part here starts the php array with 4 values that are common to 
+# all modules. 
+################################################################################
+
 // Build Config
+
+// The first line creates the first level of array and [ModuleSiteStatus] section
+// Anything inside the sub array are items that will appear under [ModuleSiteStatus]
 $module_config_array['Module'.$cur_mod['svxlinkName']] = [
 	'NAME' => $cur_mod['svxlinkName'],
 	'PLUGIN_NAME' => 'Tcl',
 	'ID' => $cur_mod['svxlinkID'],
-	'TIMEOUT' => $options['timeout'],				
+	'TIMEOUT' => '200',				
 ];
 
-
-if($options['momentary_delay']) {
-	// Momentary Delay in Milliseconds
-	$module_config_array['Module'.$cur_mod['svxlinkName']] += [
-		'MOMENTARY_DELAY' => $options['momentary_delay'],
-	];
-}
-
-if($options['access_pin']) {
-	// Define Access Code. To disable, comment out.
-	$module_config_array['Module'.$cur_mod['svxlinkName']] += [
-		'ACCESS_PIN' => $options['access_pin'],
-	];
-
-	if($options['access_attempts_allowed']) {
-		$module_config_array['Module'.$cur_mod['svxlinkName']] += [
-			'ACCESS_ATTEMPTS_ALLOWED' => $options['access_attempts_allowed'],
-		];
-	}
-}
-
-// Setting this to 1 will turn off all relays when modules is exited or times out, timeout value is set above. Set to 0 or comment out to leave relays enabled upon module exit.
-if($options['relays_off_deactivation'] == "1") {
-	$module_config_array['Module'.$cur_mod['svxlinkName']] += [
-		'RELAYS_OFF_DEACTIVATION' => '1',
-	];
-
-} else {
-	$module_config_array['Module'.$cur_mod['svxlinkName']] += [
-		'RELAYS_OFF_DEACTIVATION' => '0',
-	];
-}
-
-
-// Build Relay Variables in Config.
-if ($options['relay']) {
-	ksort($options['relay']);
-	foreach($options['relay'] as $cur_parent_array => $cur_child_array) {
-		$module_config_array['Module'.$cur_mod['svxlinkName']] += [
-			'GPIO_RELAY_'.$cur_parent_array => $cur_child_array['gpio'],
-		];
-	}	
-}
+################################################################################
+# This next part here appends more values onto to the array above.
+# that is what the '+=' it appends. Add as many hardcoded variables you want
+# to show in your INI when rebuilt.
+################################################################################
+$module_config_array['Module'.$cur_mod['svxlinkName']] += [ 
+	#'DIGITAL_GPIO_PATH' => $options['DigitalPath']], # Causes GUI to lock up
+	#'DIGITAL_GPIO_PATH' => ['DigitalPath'], # tcl error - cat: Array496/value: No such file or directory
+	#'DIGITAL_GPIO_PATH' => $cur_mod['DigitalPath'], # tcl error - cat: 496/value: No such file or directory
+	#'DIGITAL_GPIO_PATH' => [$DigitalPath], # tcl error - cat: Array496/value: No such file or directory
+	'DIGITAL_GPIO_PATH' => '/sys/class/gpio/gpio',
+	'DIGITAL_SENSORS_COUNT' => '5',
+	'ANALOG_GPIO_PATH' => '/sys/bus/iio/devices/iio:device0/in_voltage',
+	'ANALOG_SENSORS_COUNT' => '5',
+	'DIGITAL_0' => '496',
+	'DIGITAL_TYPE_0' => 'DOOR_ACTIVE_HIGH',
+	'DIGITAL_1' => '496',
+	'DIGITAL_TYPE_1' => 'FUEL_ACTIVE_HIGH',
+	'DIGITAL_2' => '496',
+	'DIGITAL_TYPE_2' => 'DOOR_ACTIVE_HIGH', 
+	'DIGITAL_3' => '496',
+	'DIGITAL_TYPE_3' => 'FUEL_ACTIVE_HIGH',
+	'DIGITAL_4' => '496',
+	'DIGITAL_TYPE_4' => 'DOOR_ACTIVE_HIGH',
+	'ANALOG_0' => '0',
+	'ANALOG_TYPE_0' => 'TEMPERATURE',
+	'ANALOG_HYSTERISIS_0' => '45',
+	'ANALOG_1' => '1',
+	'ANALOG_TYPE_1' => 'TEMPERATURE',
+	'ANALOG_HYSTERSIS_1' => '45',
+	'ANALOG_2' => '2',
+	'ANALOG_TYPE_2' => 'TEMPERATURE',
+	'ANALOG_HYSTERISIS_2' => '45',
+	'ANALOG_3' => '3',
+	'ANALOG_TYPE_3' => 'TEMPERATURE',
+	'ANALOG_HYSTERISIS_3' => '45',
+	'ANALOG_4' => '4',
+	'ANALOG_TYPE_4' => 'TEMPERATURE',
+	'ANALOG_HYSTERISIS_4' => '45',
+];
 
 ?>

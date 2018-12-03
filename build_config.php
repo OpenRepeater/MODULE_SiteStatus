@@ -40,16 +40,14 @@ $module_config_array['Module'.$cur_mod['svxlinkName']] = [
 # to show in your INI when rebuilt.
 ################################################################################
 $module_config_array['Module'.$cur_mod['svxlinkName']] += [ 
-	#'DIGITAL_GPIO_PATH' => $options['DigitalPath']], # Causes GUI to lock up
-	#'DIGITAL_GPIO_PATH' => ['DigitalPath'], # tcl error - cat: Array496/value: No such file or directory
-	#'DIGITAL_GPIO_PATH' => $cur_mod['DigitalPath'], # tcl error - cat: 496/value: No such file or directory
-	#'DIGITAL_GPIO_PATH' => [$DigitalPath], # tcl error - cat: Array496/value: No such file or directory
-	'DIGITAL_GPIO_PATH' => '/sys/class/gpio/gpio',
-	'DIGITAL_SENSORS_COUNT' => '5',
-	'ANALOG_GPIO_PATH' => '/sys/bus/iio/devices/iio:device0/in_voltage',
-	'ANALOG_SENSORS_COUNT' => '5',
-	'DIGITAL_0' => '496',
+	'DIGITAL_GPIO_PATH' => $options['DigitalPath'],
+	'DIGITAL_SENSORS_COUNT' => $options['DIGITAL_SENSORS_COUNT'],
+	'ANALOG_GPIO_PATH' => $options['AnalogPath'],
+	'ANALOG_SENSORS_COUNT' => $options['ANALOG_SENSORS_COUNT'],
+
+	'DIGITAL_0' => $options['DIGITAL_0_GPIO'],
 	'DIGITAL_TYPE_0' => 'DOOR_ACTIVE_HIGH',
+	
 	'DIGITAL_1' => '496',
 	'DIGITAL_TYPE_1' => 'FUEL_ACTIVE_HIGH',
 	'DIGITAL_2' => '496',

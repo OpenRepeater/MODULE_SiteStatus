@@ -1,10 +1,10 @@
 /* Module CSS */
 
-#relaysWrap {
+#digitalWrap, #analogWrap {
 	overflow: hidden;
 }
 
-.relayRow {
+.sensorRow {
 	background-color: #f0f0f0;
     overflow-x: auto;
     white-space: normal;
@@ -15,11 +15,11 @@
 	border-bottom: 1px solid silver;
 }
 
-.relayRow.additional {
+.sensorRow.additional {
 	margin-top: 8px;
 }
 
-.relayRow span {
+.sensorRow span {
     display: inline-block;
     white-space: normal;
 	margin: 0 4px;
@@ -27,23 +27,36 @@
 	float: left;
 }
 
-.relayRow span.num {
+.sensorRow span.num {
 	font-size: 24px;
 	font-weight: bold;
 	color: #666;
 	padding-top: 8px;
 }
 
-.relayLabel {
-	min-width: 100;
+.digitalLabel, .analogLabel {
+	min-width: 100px;
 }
 
-.relayGPIO {
+.digitalType {
+	max-width: 120px;
+}
+
+.digitalGPIO, .analogGPIO {
 	width: 35px;
 	text-align: center;
 }
 
-a#addRelay, #removeRelay {
+.digitalActive {
+	max-width: 120px;
+}
+
+.analogHysterisis {
+	max-width: 80px;	
+	text-align: center;
+}
+
+a#addDigital, #removeDigital, a#addAnalog, #removeAnalog {
 float:left;
 margin-top: 12px;
 margin-left: 5px;

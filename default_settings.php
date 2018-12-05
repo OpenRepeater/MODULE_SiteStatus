@@ -14,30 +14,30 @@ $default_settings = [
     'digital_path' => '/sys/class/gpio/gpio',
     'analog_path' => '/sys/bus/iio/devices/iio:device0/in_voltage',
 	'digital' => [
-		'0' => [
-			'label' => 'Digital Sensor 0',
-			'gpio' => '496',
-			'active' => 'low',
-			'type' => 'door'
-		],
 		'1' => [
 			'label' => 'Digital Sensor 1',
+			'type' => 'door',
+			'gpio' => '496',
+			'active' => 'low'
+		],
+		'2' => [
+			'label' => 'Digital Sensor 2',
+			'type' => 'fuel',
 			'gpio' => '507',
-			'active' => 'low',
-			'type' => 'fuel'
+			'active' => 'low'
 		]
 	],
 	'analog' => [
-		'0' => [
-			'label' => 'Analog Sensor 0',
-			'gpio' => '1000',
-			'type' => 'temperature',
-			'hysterisis' => '45'
-		],
 		'1' => [
 			'label' => 'Analog Sensor 1',
-			'gpio' => '1001',
+			'type' => 'temperature',
+			'gpio' => '1000',
+			'hysterisis' => '45'
+		],
+		'2' => [
+			'label' => 'Analog Sensor 2',
 			'type' => 'battery_voltage',
+			'gpio' => '1001',
 			'hysterisis' => '45'
 		]
 	]

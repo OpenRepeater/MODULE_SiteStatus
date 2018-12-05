@@ -5,7 +5,6 @@
  *	This is included into a full page wrapper to be displayed. 
  */
 
-// print_r($moduleSettings);
 ?>
 
 
@@ -30,9 +29,10 @@
 		'solar' => 'Solar Charging',
 		'battery' => 'Battery'
 	];
-// 	echo json_encode($digitalTypesArray);
+	// Hidden DIV to pass above array to JavaScript as json array
+	echo '<div id="digitalTypeArray" style="display:none;">' . json_encode($digitalTypesArray) . '</div>';
 
-	$idNumDigital = 0; // This will be replaced by a loop to load exsiting values 
+	$idNumDigital = 1; // This will be replaced by a loop to load exsiting values 
 	
 	if ($moduleSettings['digital']) {
 		ksort($moduleSettings['digital']);
@@ -73,7 +73,7 @@
 					</select>
 				</span>
 	
-				<?php if ($idNumDigital == 0) { 
+				<?php if ($idNumDigital == 1) { 
 					echo '<a href="#" id="addDigital" title="Add a digital sensor"><i class="icon-plus-sign"></i></a>';
 				} else {
 					echo '<a href="#" id="removeDigital" title="Remove this digital sensor"><i class="icon-minus-sign"></i></a>';
@@ -107,8 +107,10 @@
 		'temperature' => 'Temperature',
 		'battery_voltage' => 'Battery Voltage'
 	];
+	// Hidden DIV to pass above array to JavaScript as json array
+	echo '<div id="analogTypeArray" style="display:none;">' . json_encode($analogTypesArray) . '</div>';
 
-	$idNumAnalog = 0; // This will be replaced by a loop to load exsiting values 
+	$idNumAnalog = 1; // This will be replaced by a loop to load exsiting values 
 	
 	if ($moduleSettings['analog']) {
 		ksort($moduleSettings['analog']);
@@ -139,7 +141,7 @@
 					<input id="analogHysterisis<?php echo $idNumAnalog; ?>" type="number" name="analogHysterisis[]" placeholder="Hysterisis"  value="<?php echo $cur_child_array['hysterisis']; ?>" class="analogHysterisis" required>
 				</span>
 	
-				<?php if ($idNumAnalog == 0) { 
+				<?php if ($idNumAnalog == 1) { 
 					echo '<a href="#" id="addAnalog" title="Add a analog sensor"><i class="icon-plus-sign"></i></a>';
 				} else {
 					echo '<a href="#" id="removeAnalog" title="Remove this analog sensor"><i class="icon-minus-sign"></i></a>';

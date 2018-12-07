@@ -43,6 +43,3 @@ $default_settings = [
 	]
 ];
 ?>
-
-temperature
-battery_voltage

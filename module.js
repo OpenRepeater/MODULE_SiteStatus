@@ -65,17 +65,17 @@ function analogTemplate(n, typeArray) {
 
 function updateDigitalCount(n) {
 	if(n==1) {
-	    $('#digitalCount').html( n + ' Digital Senor' ); // singular
+	    $('#digitalCount').html( n + ' Digital Sensor' ); // singular
 	} else {
-	    $('#digitalCount').html( n + ' Digital Senors' ); // plural
+	    $('#digitalCount').html( n + ' Digital Sensors' ); // plural
 	}
 }
 
 function updateAnalogCount(n) {
 	if(n==1) {
-	    $('#analogCount').html( n + ' Analog Senor' ); // singular
+	    $('#analogCount').html( n + ' Analog Sensor' ); // singular
 	} else {
-	    $('#analogCount').html( n + ' Analog Senors' ); // plural
+	    $('#analogCount').html( n + ' Analog Sensors' ); // plural
 	}
 }
 
